@@ -1,32 +1,35 @@
 import datetime
 import hashlib
 import json
+from .storage import MemoryStorage
 
 class DocumentChain(object):
-    def __init__(self):
-        self.documents = {}
-        self.head = None
+    def __init__(self, storage=None):
+        if storage is None:
+            self.storage = MemoryStorage()
+        else:
+            self.storage = storage
 
     def add(self, content):
         entry = json.dumps({
             "content": content,
             "meta": {
-                "previous_id": self.head,
+                "previous_id": self.storage.get_head(),
                 "timestamp": datetime.datetime.utcnow().isoformat(),
             },
         })
         id = hashlib.sha256(entry).hexdigest()
-        self.documents[id] = entry
-        self.head = id
+        self.storage.set_entry(id, entry)
+        self.storage.set_head(id)
         return id
 
     def get(self, id):
-        return json.loads(self.documents[id])['content']
+        return json.loads(self.storage.get_entry(id))['content']
 
     def verify(self):
-        id = self.head
+        id = self.storage.get_head()
         while id:
-            document = self.documents[id]
+            document = self.storage.get_entry(id)
             if hashlib.sha256(document).hexdigest() != id:
                 return False
             id = json.loads(document)["meta"]["previous_id"]
