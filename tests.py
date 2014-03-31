@@ -2,7 +2,7 @@ import tempfile
 import os
 import unittest
 from documentchain import DocumentChain
-from documentchain.storage import DiskStorage
+from documentchain.storage import DiskStorage, MemoryStorage
 
 class DocumentChainTest(unittest.TestCase):
     def test_add(self):
@@ -18,6 +18,27 @@ class DocumentChainTest(unittest.TestCase):
         self.assertTrue(chain.verify())
         chain.add({'owner': 'theodore'})
         self.assertTrue(chain.verify())
+
+    def test_verify_broken_first_entry(self):
+        storage = MemoryStorage()
+        chain = DocumentChain(storage=storage)
+        id1 = chain.add({'owner': 'victor'})
+        id2 = chain.add({'owner': 'theodore'})
+        self.assertTrue(chain.verify())
+        entry = storage.get_entry(id1)
+        storage.set_entry(id1, entry.replace('victor', 'eddie'))
+        self.assertFalse(chain.verify())
+
+    def test_verify_broken_second_entry(self):
+        storage = MemoryStorage()
+        chain = DocumentChain(storage=storage)
+        id1 = chain.add({'owner': 'victor'})
+        id2 = chain.add({'owner': 'theodore'})
+        self.assertTrue(chain.verify())
+        entry = storage.get_entry(id2)
+        storage.set_entry(id2, entry.replace('theodore', 'eddie'))
+        self.assertFalse(chain.verify())
+
 
 class DiskStorageTest(unittest.TestCase):
     def test_set_entry(self):
