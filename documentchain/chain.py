@@ -33,7 +33,7 @@ class DocumentChain(object):
         id = self.storage.get_head()
         while id:
             entry = json.loads(self.storage.get_entry(id))
-            yield entry['content']
+            yield entry
             id = entry["meta"]["previous_id"]
 
     def verify(self):
