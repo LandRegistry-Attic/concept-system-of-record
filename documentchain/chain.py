@@ -26,6 +26,16 @@ class DocumentChain(object):
     def get(self, id):
         return json.loads(self.storage.get_entry(id))['content']
 
+    def all(self):
+        """
+        Returns an iterator of all entries.
+        """
+        id = self.storage.get_head()
+        while id:
+            entry = json.loads(self.storage.get_entry(id))
+            yield entry['content']
+            id = entry["meta"]["previous_id"]
+
     def verify(self):
         id = self.storage.get_head()
         while id:

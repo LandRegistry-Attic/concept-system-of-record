@@ -39,6 +39,15 @@ class DocumentChainTest(unittest.TestCase):
         storage.set_entry(id2, entry.replace('theodore', 'eddie'))
         self.assertFalse(chain.verify())
 
+    def test_all(self):
+        chain = DocumentChain()
+        chain.add({'owner': 'victor'})
+        chain.add({'owner': 'theodore'})
+        self.assertEqual(list(chain.all()), [
+            {'owner': 'theodore'},
+            {'owner': 'victor'},
+        ])
+
 
 class DiskStorageTest(unittest.TestCase):
     def test_set_entry(self):
