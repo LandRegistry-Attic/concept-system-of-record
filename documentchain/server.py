@@ -1,9 +1,14 @@
 from flask import Flask, jsonify, request
+import os
 from .chain import DocumentChain
-from .storage import DiskStorage
+from .storage import RedisStorage
 
 app = Flask(__name__)
-chain = DocumentChain(DiskStorage('data/'))
+storage = RedisStorage('redis://%s:%s' % (
+    os.environ.get('REDIS_1_PORT_6379_TCP_ADDR'),
+    os.environ.get('REDIS_1_PORT_6379_TCP_PORT')
+))
+chain = DocumentChain(storage)
 
 @app.route('/entries', methods=['GET', 'POST'])
 def entry_list():

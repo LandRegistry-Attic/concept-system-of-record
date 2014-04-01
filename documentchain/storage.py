@@ -1,3 +1,4 @@
+from redis import Redis
 import os
 
 class MemoryStorage(object):
@@ -44,3 +45,19 @@ class DiskStorage(object):
                 return None
             else:
                 raise
+
+class RedisStorage(object):
+    def __init__(self, url):
+        self.client = Redis.from_url(url)
+
+    def set_entry(self, id, content):
+        self.client.set(id, content)
+
+    def get_entry(self, id):
+        return self.client.get(id)
+
+    def set_head(self, id):
+        self.client.set('HEAD', id)
+
+    def get_head(self):
+        return self.client.get('HEAD')

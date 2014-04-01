@@ -7,3 +7,9 @@ web:
    - "5000:5000"
   environment:
    - PYTHONUNBUFFERED: "1"
+  links:
+   - redis
+redis:
+  image: orchardup/redis
+  ports:
+   - 6379:6379
