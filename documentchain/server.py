@@ -13,7 +13,15 @@ else:
         os.environ.get('REDIS_1_PORT_6379_TCP_ADDR'),
         os.environ.get('REDIS_1_PORT_6379_TCP_PORT')
     ))
-chain = DocumentChain(storage)
+
+if 'WEBHOOKS' in os.environ:
+    webhooks = os.environ['WEBHOOKS'].split(',')
+else:
+    webhooks = []
+chain = DocumentChain(
+    storage=storage,
+    webhooks=webhooks,
+)
 
 @app.before_first_request
 def setup_logging():

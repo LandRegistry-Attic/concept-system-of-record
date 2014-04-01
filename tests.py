@@ -1,5 +1,6 @@
-import tempfile
+import mock
 import os
+import tempfile
 import unittest
 from documentchain import DocumentChain
 from documentchain.storage import DiskStorage, MemoryStorage
@@ -52,6 +53,13 @@ class DocumentChainTest(unittest.TestCase):
         chain = DocumentChain()
         chain.add({'owner': 'victor'})
         self.assertEqual(chain.get_head().content, {'owner': 'victor'})
+
+    @mock.patch('requests.post')
+    def test_webhooks(self, mock_post):
+        chain = DocumentChain(webhooks=['http://example.com/webhook'])
+        chain.add({'owner': 'victor'})
+        entry = chain.get_head()
+        mock_post.assert_called_once_with('http://example.com/webhook', data=entry.to_json())
 
 class DiskStorageTest(unittest.TestCase):
     def test_set_entry(self):

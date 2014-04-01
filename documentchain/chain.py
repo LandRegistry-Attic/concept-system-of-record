@@ -1,12 +1,12 @@
+import json
+import requests
 from .entry import Entry
 from .storage import MemoryStorage
 
 class DocumentChain(object):
-    def __init__(self, storage=None):
-        if storage is None:
-            self.storage = MemoryStorage()
-        else:
-            self.storage = storage
+    def __init__(self, storage=None, webhooks=None):
+        self.storage =  storage or MemoryStorage()
+        self.webhooks = webhooks or []
 
     def add(self, content):
         entry = Entry(
@@ -16,6 +16,8 @@ class DocumentChain(object):
         id = entry.get_id()
         self.storage.set_entry(id, entry.to_json())
         self.storage.set_head(id)
+        for url in self.webhooks:
+            requests.post(url, data=entry.to_json())
         return id
 
     def get(self, id):
