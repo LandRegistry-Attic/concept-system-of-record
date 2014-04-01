@@ -1,6 +1,7 @@
 import datetime
 import hashlib
 import json
+from .utils import canonical_json
 
 class Entry(object):
     """
@@ -33,7 +34,7 @@ class Entry(object):
         return d
 
     def to_json(self):
-        return json.dumps(self.serialize(with_id=False))
+        return canonical_json(self.serialize(with_id=False))
 
     def get_meta(self):
         return {
@@ -43,5 +44,3 @@ class Entry(object):
 
     def get_id(self):
         return hashlib.sha256(self.to_json()).hexdigest()
-
-        
