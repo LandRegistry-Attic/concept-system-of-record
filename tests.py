@@ -59,7 +59,11 @@ class DocumentChainTest(unittest.TestCase):
         chain = DocumentChain(webhooks=['http://example.com/webhook'])
         chain.add({'owner': 'victor'})
         entry = chain.get_head()
-        mock_post.assert_called_once_with('http://example.com/webhook', data=entry.to_json())
+        mock_post.assert_called_once_with(
+            'http://example.com/webhook',
+            data=entry.to_json(),
+            headers={'content-type': 'application/json'}
+        )
 
 class DiskStorageTest(unittest.TestCase):
     def test_set_entry(self):

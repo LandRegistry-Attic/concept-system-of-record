@@ -17,7 +17,12 @@ class DocumentChain(object):
         self.storage.set_entry(id, entry.to_json())
         self.storage.set_head(id)
         for url in self.webhooks:
-            requests.post(url, data=entry.to_json())
+            res = requests.post(
+                url,
+                data=entry.to_json(),
+                headers={'content-type': 'application/json'}
+            )
+            res.raise_for_status()
         return id
 
     def get(self, id):
