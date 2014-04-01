@@ -19,7 +19,7 @@ class DocumentChain(object):
         return id
 
     def get(self, id):
-        return Entry.from_json(self.storage.get_entry(id)).content
+        return Entry.from_json(self.storage.get_entry(id))
 
     def all(self):
         """

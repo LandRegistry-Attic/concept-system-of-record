@@ -9,8 +9,8 @@ class DocumentChainTest(unittest.TestCase):
         chain = DocumentChain()
         id1 = chain.add({'owner': 'victor'})
         id2 = chain.add({'owner': 'theodore'})
-        self.assertEqual(chain.get(id1), {'owner': 'victor'})
-        self.assertEqual(chain.get(id2), {'owner': 'theodore'})
+        self.assertEqual(chain.get(id1).content, {'owner': 'victor'})
+        self.assertEqual(chain.get(id2).content, {'owner': 'theodore'})
 
     def test_verify(self):
         chain = DocumentChain()
