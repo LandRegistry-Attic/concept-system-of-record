@@ -39,3 +39,7 @@ class DocumentChain(object):
                 return False
             id = entry.previous_id
         return True
+
+    def get_head(self):
+        id = self.storage.get_head()
+        return Entry.from_json(self.storage.get_entry(id))

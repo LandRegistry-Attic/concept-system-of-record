@@ -48,6 +48,10 @@ class DocumentChainTest(unittest.TestCase):
             {'owner': 'victor'},
         ])
 
+    def test_get_head(self):
+        chain = DocumentChain()
+        chain.add({'owner': 'victor'})
+        self.assertEqual(chain.get_head().content, {'owner': 'victor'})
 
 class DiskStorageTest(unittest.TestCase):
     def test_set_entry(self):
