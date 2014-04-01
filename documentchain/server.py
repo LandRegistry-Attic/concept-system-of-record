@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+import logging
 import os
 from .chain import DocumentChain
 from .storage import RedisStorage
@@ -13,6 +14,12 @@ else:
         os.environ.get('REDIS_1_PORT_6379_TCP_PORT')
     ))
 chain = DocumentChain(storage)
+
+@app.before_first_request
+def setup_logging():
+    if not app.debug:
+        app.logger.addHandler(logging.StreamHandler())
+        app.logger.setLevel(logging.INFO)
 
 @app.route('/entries', methods=['GET', 'POST'])
 def entry_list():
