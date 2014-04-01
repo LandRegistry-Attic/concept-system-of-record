@@ -3,3 +3,11 @@ python:
 - '2.7'
 install: pip install -r requirements.txt
 script: python tests.py
+deploy:
+  provider: heroku
+  api_key:
+    secure: UZbkkUVkdOXOVopr4AE7pgEAC6JsmSZbdHb88QzkQut2VflPHI8oOtswYF5Qq2XyuL7xq1Y9cvhq61kGSn3D/URI+UiM33+OPYEQ+Z5ZbBkWA3dPFgf3MBXXT3Wj5K5/Q5eEX0XLwBgQLW7BD2riYqNtxkbZwP9r45kLHJte4HU=
+  app: lr-concept-system-of-record
+  on:
+    repo: LandRegistry/concept-system-of-record
+  strategy: git
