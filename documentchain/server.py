@@ -15,4 +15,4 @@ def entries():
         res.status_code = 201
         return res
     else:
-        return jsonify({'entries': list(chain.all())})
+        return jsonify({'entries': [e.content for e in chain.all()]})

@@ -43,7 +43,7 @@ class DocumentChainTest(unittest.TestCase):
         chain = DocumentChain()
         chain.add({'owner': 'victor'})
         chain.add({'owner': 'theodore'})
-        self.assertEqual(list(chain.all()), [
+        self.assertEqual([e.content for e in chain.all()], [
             {'owner': 'theodore'},
             {'owner': 'victor'},
         ])
