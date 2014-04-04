@@ -18,15 +18,17 @@ if os.environ.get('BASIC_AUTH_USERNAME'):
 if 'REDISCLOUD_URL' in os.environ:
     storage = RedisStorage(os.environ['REDISCLOUD_URL'])
 else:
-    storage = RedisStorage('redis://%s:%s' % (
-        os.environ.get('REDIS_1_PORT_6379_TCP_ADDR'),
-        os.environ.get('REDIS_1_PORT_6379_TCP_PORT')
-    ))
+    storage = RedisStorage(os.environ['SYSTEMOFRECORDREDIS_1_PORT_6379_TCP'].replace('tcp://', 'redis://'))
 
 if 'WEBHOOKS' in os.environ:
     webhooks = os.environ['WEBHOOKS'].split(',')
 else:
     webhooks = []
+
+# Automatically connect to titles service in development
+if 'TITLES_1_PORT_8004_TCP' in os.environ:
+    webhooks.append(os.environ['TITLES_1_PORT_8004_TCP'].replace('tcp://', 'http://') + '/titles-revisions')
+
 chain = DocumentChain(
     storage=storage,
     webhooks=webhooks,
