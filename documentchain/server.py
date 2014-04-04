@@ -1,10 +1,19 @@
 from flask import Flask, jsonify, request
+from flask.ext.basicauth import BasicAuth
 import logging
 import os
 from .chain import DocumentChain
 from .storage import RedisStorage
 
 app = Flask(__name__)
+
+# Auth
+if os.environ.get('BASIC_AUTH_USERNAME'):
+    app.config['BASIC_AUTH_USERNAME'] = os.environ['BASIC_AUTH_USERNAME']
+    app.config['BASIC_AUTH_PASSWORD'] = os.environ['BASIC_AUTH_PASSWORD']
+    app.config['BASIC_AUTH_FORCE'] = True
+    basic_auth = BasicAuth(app)
+
 
 if 'REDISCLOUD_URL' in os.environ:
     storage = RedisStorage(os.environ['REDISCLOUD_URL'])
