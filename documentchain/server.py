@@ -25,9 +25,11 @@ if 'WEBHOOKS' in os.environ:
 else:
     webhooks = []
 
-# Automatically connect to titles service in development
+# Automatically connect to titles and geo services in development
 if 'TITLES_1_PORT_8004_TCP' in os.environ:
     webhooks.append(os.environ['TITLES_1_PORT_8004_TCP'].replace('tcp://', 'http://') + '/titles-revisions')
+if 'GEO_1_PORT_8005_TCP' in os.environ:
+    webhooks.append(os.environ['GEO_1_PORT_8005_TCP'].replace('tcp://', 'http://') + '/titles-revisions')
 
 chain = DocumentChain(
     storage=storage,
