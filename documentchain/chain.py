@@ -22,7 +22,11 @@ class DocumentChain(object):
                 data=entry.to_json(),
                 headers={'content-type': 'application/json'}
             )
-            res.raise_for_status()
+            try:
+                res.raise_for_status()
+            except:
+                print res.content
+                raise
         return id
 
     def get(self, id):
