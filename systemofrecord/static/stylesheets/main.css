@@ -1,5 +1,5 @@
 .verification-status {
-  padding-top: 30px;
+  padding-top: 70px;
 }
 
 .big-icon {
@@ -26,4 +26,9 @@
   margin-top: 35px;
   width: 60px;
   height: 60px;
+}
+
+.altered-records {
+  padding-top: 75px;
+  font-size: 24px;
 }

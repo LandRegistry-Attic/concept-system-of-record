@@ -1,18 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
   <div class="container">
-    <div class="page-header">
-      <h1>System of Record Dashboard</h1>
-    </div>
-
-    <div class="verification-status row">
-      <div class="col-md-1"></div>
-      <div class="col-md-3">
-        <div class="big-icon glyphicon"></div>
+    <div class="verification-status">
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+          <div class="big-icon glyphicon"></div>
+        </div>
+        <div class="col-md-8">
+          <div class="spinner"></div>
+          <div class="status-text"></div>
+        </div>
       </div>
-      <div class="col-md-8">
-        <div class="spinner"></div>
-        <div class="status-text"></div>
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <div class="altered-records"></div>
+        </div>
       </div>
     </div>
   </div>
