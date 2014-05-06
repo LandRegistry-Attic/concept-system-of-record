@@ -2,8 +2,8 @@ import mock
 import os
 import tempfile
 import unittest
-from documentchain import DocumentChain
-from documentchain.storage import DiskStorage, MemoryStorage
+from systemofrecord import DocumentChain
+from systemofrecord.storage import DiskStorage, MemoryStorage
 
 class DocumentChainTest(unittest.TestCase):
     def test_add(self):

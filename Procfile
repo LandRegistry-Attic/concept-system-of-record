@@ -1,1 +1,1 @@
-web: gunicorn documentchain.server:app
+web: gunicorn systemofrecord.server:app
