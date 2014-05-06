@@ -5,8 +5,22 @@
       <h1>System of Record Dashboard</h1>
     </div>
 
-    <div class="status">
-      <span class="glyphicon glyphicon-remove"></span>
+    <div class="verification-status row">
+      <div class="col-md-1"></div>
+      <div class="col-md-3">
+        <div class="big-icon glyphicon"></div>
+      </div>
+      <div class="col-md-8">
+        <div class="spinner"></div>
+        <div class="status-text"></div>
+      </div>
     </div>
   </div>
+{% endblock %}
+{% block extra_js %}
+  <script>
+    new LR.DashboardVerifier({
+      el: '.verification-status'
+    });
+  </script>
 {% endblock %}

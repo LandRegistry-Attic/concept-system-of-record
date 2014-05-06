@@ -1,9 +1,29 @@
-.status {
-  font-size: 100px;
+.verification-status {
+  padding-top: 30px;
 }
-.status .glyphicon-ok {
+
+.big-icon {
+  font-size: 130px;
+  float: left;
+  padding-right: 30px;
+}
+.big-icon.glyphicon-ok {
   color: green;
 }
-.status .glyphicon-remove {
+.big-icon.glyphicon-remove {
   color: red;
+}
+
+.status-text {
+  float: left;
+  font-size: 50px;
+  margin-top: 35px;
+}
+
+.spinner {
+  float: left;
+  position: relative;
+  margin-top: 35px;
+  width: 60px;
+  height: 60px;
 }
