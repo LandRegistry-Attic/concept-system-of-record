@@ -54,6 +54,11 @@ def entry_list():
     else:
         return jsonify({'entries': [e.serialize() for e in chain.all()]})
 
+@app.route('/invalid-entries', methods=['GET'])
+def invalid_entries_list():
+    return jsonify({
+        'entries': [e.serialize() for e in chain.invalid_entries()]
+    })
 
 @app.route('/entries/<entry_id>', methods=['GET'])
 def entry_detail(entry_id):

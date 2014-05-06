@@ -42,13 +42,20 @@ class DocumentChain(object):
             id = entry.previous_id
 
     def verify(self):
+        for entry in self.invalid_entries():
+            return False
+        return True
+
+    def invalid_entries(self):
+        """
+        Returns an iterator of entries which are invalid.
+        """
         id = self.storage.get_head()
         while id:
             entry = Entry.from_json(self.storage.get_entry(id))
             if entry.get_id() != id:
-                return False
+                yield entry
             id = entry.previous_id
-        return True
 
     def get_head(self):
         id = self.storage.get_head()
