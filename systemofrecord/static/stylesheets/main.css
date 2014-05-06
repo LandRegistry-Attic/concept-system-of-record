@@ -1,0 +1,9 @@
+.status {
+  font-size: 100px;
+}
+.status .glyphicon-ok {
+  color: green;
+}
+.status .glyphicon-remove {
+  color: red;
+}

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask.ext.basicauth import BasicAuth
 import logging
 import os
@@ -63,3 +63,7 @@ def invalid_entries_list():
 @app.route('/entries/<entry_id>', methods=['GET'])
 def entry_detail(entry_id):
     return jsonify(chain.get(entry_id).serialize())
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
