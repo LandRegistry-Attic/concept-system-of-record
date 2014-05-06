@@ -14,8 +14,7 @@ class DocumentChain(object):
             previous_id=self.storage.get_head(),
         )
         id = entry.get_id()
-        self.storage.set_entry(id, entry.to_json())
-        self.storage.set_head(id)
+        self.storage.add_entry(id, entry.to_json())
         for url in self.webhooks:
             res = requests.post(
                 url,

@@ -80,12 +80,13 @@ class DiskStorageTest(unittest.TestCase):
         storage = DiskStorage(path)
         self.assertEqual(storage.get_entry('0123'), 'content')
 
-    def test_set_head(self):
+    def test_add_entry(self):
         path = tempfile.mkdtemp()
         storage = DiskStorage(path)
-        storage.set_head('abcd')
+        storage.add_entry('abcd', 'content')
         with open(os.path.join(path, 'HEAD')) as fh:
             self.assertEqual(fh.read(), 'abcd')
+        self.assertEqual(storage.get_entry('abcd'), 'content')
 
     def test_get_head(self):
         path = tempfile.mkdtemp()
