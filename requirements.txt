@@ -1,3 +1,4 @@
+eventlet==0.14.0
 flask==0.10.1
 Flask-BasicAuth
 gunicorn==18.0
