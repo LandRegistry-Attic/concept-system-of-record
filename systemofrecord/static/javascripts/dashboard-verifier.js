@@ -2,8 +2,11 @@
   window.LR = window.LR || {};
 
   var DashboardVerifier = LR.DashboardVerifier = function(options) {
-    _.bindAll(this, 'fetchInvalidEntriesSuccess',
-              'updateFromInvalidEntries');
+    _.bindAll(this,
+      'fetchInvalidEntries',
+      'fetchInvalidEntriesSuccess',
+      'updateFromInvalidEntries'
+    );
     this.$el = $(options.el);
     this.startSpinner();
     this.setValid();
