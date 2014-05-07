@@ -5,6 +5,7 @@
     _.bindAll(this,
       'fetchInvalidEntries',
       'fetchInvalidEntriesSuccess',
+      'fetchInvalidEntriesComplete',
       'updateFromInvalidEntries'
     );
     this.$el = $(options.el);
@@ -19,10 +20,13 @@
       $.ajax({
         url: '/invalid-entries',
         success: this.fetchInvalidEntriesSuccess,
+        complete: this.fetchInvalidEntriesComplete,
       });
     },
     fetchInvalidEntriesSuccess: function(result) {
       this.updateFromInvalidEntries(result.entries);
+    },
+    fetchInvalidEntriesComplete: function() {
       setTimeout(this.fetchInvalidEntries, 5000);
     },
     updateFromInvalidEntries: function(entries) {
