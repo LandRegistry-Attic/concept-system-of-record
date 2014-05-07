@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, render_template
 from flask.ext.basicauth import BasicAuth
+import itertools
 import logging
 import os
 from .chain import DocumentChain
@@ -56,8 +57,10 @@ def entry_list():
 
 @app.route('/invalid-entries', methods=['GET'])
 def invalid_entries_list():
+    limit = int(request.args.get('limit', 100))
+    entries = itertools.islice(chain.invalid_entries(), limit)
     return jsonify({
-        'entries': [e.serialize() for e in chain.invalid_entries()]
+        'entries': [e.serialize() for e in entries]
     })
 
 @app.route('/entries/<entry_id>', methods=['GET'])

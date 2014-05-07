@@ -20,7 +20,7 @@
     },
     fetchInvalidEntriesSuccess: function(result) {
       this.updateFromInvalidEntries(result.entries);
-      this.fetchInvalidEntries();
+      setTimeout(this.fetchInvalidEntries, 1000);
     },
     updateFromInvalidEntries: function(entries) {
       console.log(entries.length+' invalid entries');
